@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   inputView: {
     flexDirection: 'row',
     padding: Platform.OS === 'ios' ? 10 : 0,
-    paddingHorizontal: Platform.OS === 'android' ? 10 : 0,
+    paddingHorizontal: Platform.OS === 'android' ? 10 : 10,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: COLORS.grey,

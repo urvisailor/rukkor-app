@@ -4,11 +4,13 @@ import Login from '../screens/login';
 import NewAccount from '../screens/new-account';
 import SetupProfile from '../screens/setup-profile';
 import RealId from '../screens/realId';
+import Logout from '../screens/home/logout';
 export type RootStackParamList = {
   Login: undefined;
   NewAccount: undefined;
   SetupProfile: undefined;
-  RealId:undefined;
+  RealId: undefined;
+  Logout: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +36,11 @@ const NavigationApp = () => {
         <Stack.Screen
           name="RealId"
           component={RealId}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Logout"
+          component={Logout}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

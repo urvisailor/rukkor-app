@@ -40,7 +40,12 @@ const styles = StyleSheet.create({
   },
   rightIcon:{
     alignSelf:'flex-end'
-  }
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

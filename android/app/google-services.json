@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "927215955286",
+    "project_id": "rukko-5c74a",
+    "storage_bucket": "rukko-5c74a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927215955286:android:b5e4b743be6b57e1d0baf7",
+        "android_client_info": {
+          "package_name": "com.rukkorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfix7IaK3vkCG0m6E_oKqq1YFjkTKf71g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -59,10 +59,15 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     alignSelf: 'center',
   },
-  row:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between'
-  }
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 export default styles;

@@ -6,10 +6,17 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import CustomButton from '../../components/button';
 import CustomTextInput from '../../components/textinput';
 import styles from './styles';
+import {validateEmail, validatePassword} from '../../utils/constants';
+import DeviceInfo from 'react-native-device-info';
+import messaging from '@react-native-firebase/messaging';
+import {useDispatch} from 'react-redux';
+import {AppDispatch} from '../../redux/store';
+import {registerApp} from '../../redux/slice';
 
 const NewAccount: React.FC<{navigation: any}> = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -17,14 +24,49 @@ const NewAccount: React.FC<{navigation: any}> = ({navigation}) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleCreateAccount = () => {
-    // if (password !== confirmPassword) {
-    //   Alert.alert('Passwords do not match');
-    //   return;
-    // }
-    navigation.navigate('SetupProfile')
-    // Handle account creation logic here
+  const handleCreateAccount = async () => {
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+    const confirmPasswordError =
+      confirmPassword !== password ? 'Passwords do not match' : '';
+    const deviceId = await DeviceInfo.getDeviceId();
+    const type = await DeviceInfo.getDeviceType();
+    const deviceName = await DeviceInfo.getDeviceName();
+    console.log('deviceIOd===>', deviceId);
+    const token = await messaging().getToken();
+    console.log('Device token:', token);
+    console.log('Device token:', type);
+
+    if (!emailError && !passwordError && !confirmPasswordError) {
+      // Handle successful account creation with validated data
+
+      const payload = {
+        data: {
+          primary_email: email,
+          os_platform: Platform.OS,
+          os_platform_version: Platform.Version,
+          user_agent: 'user1',
+          device_name: deviceName,
+          type: type,
+          password: password,
+          device_id: deviceId,
+          device_token: token,
+        },
+        navigation:navigation
+      };
+      dispatch(registerApp(payload));
+     
+    } else {
+      if (emailError) {
+        Alert.alert('Error', emailError);
+      } else if (passwordError) {
+        Alert.alert('Error', passwordError);
+      } else if (confirmPassword) {
+        Alert.alert('Error', confirmPasswordError);
+      }
+    }
   };
 
   return (

@@ -1,24 +1,68 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from 'react-native';
 import CustomButton from '../../components/button';
 import CustomTextInput from '../../components/textinput';
 import styles from './styles';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import DeviceInfo from 'react-native-device-info';
+import messaging from '@react-native-firebase/messaging';
+import {AppDispatch} from '../../redux/store';
+import {useDispatch, useSelector} from 'react-redux';
+import {auth} from '../../redux/slice';
+import { COLORS } from '../../utils/constants';
 interface Props {
   navigation: NativeStackNavigationProp<any>;
 }
 
 const Login: React.FC<Props> = ({navigation}) => {
+  const loading = useSelector((state: any) => state.profile.isloading);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isVisible, setisVisible] = useState(true);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    const deviceId = await DeviceInfo.getDeviceId();
+    const type = await DeviceInfo.getDeviceType();
+    const deviceName = await DeviceInfo.getDeviceName();
+    console.log('deviceIOd===>', deviceId);
+    const token = await messaging().getToken();
+    const payload = {
+      data: {
+        primary_email: email,
+        os_platform: Platform.OS,
+        os_platform_version: Platform.Version,
+        user_agent: 'user1',
+        device_name: deviceName,
+        type: type,
+        password: password,
+        device_id: deviceId,
+        device_token: token,
+      },
+      navigation: navigation,
+    };
+    dispatch(auth(payload));
   };
 
   const handleCreateAccount = () => {
     navigation.navigate('NewAccount');
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={COLORS.primary} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

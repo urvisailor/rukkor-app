@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, ViewStyle, TextStyle, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  View,
+  Text,
+  Platform,
+} from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import {COLORS, FONTS} from '../utils/constants';
 
@@ -31,7 +38,7 @@ const CountryPicker: React.FC<Props> = ({
       <Text style={styles.text}>{label}</Text>
       <View style={[styles.row, styles.picker]}>
         {icon && icon}
-        <Text style={styles.value}>{value}</Text>
+        {Platform.OS === 'android' && <Text style={styles.value}>{value}</Text>}
         <RNPickerSelect
           value={value}
           onValueChange={onValueChange}
@@ -53,7 +60,7 @@ const pickerSelectStyles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     color: 'black',
-    paddingRight: 30, 
+    paddingRight: 30,
     backgroundColor: COLORS.grey,
   },
   inputAndroid: {
@@ -61,7 +68,7 @@ const pickerSelectStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     color: 'black',
-    paddingRight: 30, 
+    paddingRight: 30,
     backgroundColor: COLORS.grey,
   },
   placeholder: {

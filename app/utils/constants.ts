@@ -9,3 +9,16 @@ export const COLORS = {
 export const FONTS = {
     roboto: 'Roboto-Regular'
 }
+
+export const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) ? '' : 'Invalid email address';
+};
+
+export const validatePassword = (password: string) => {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])\S{10,}$/;
+    if (password.length < 10) {
+        return 'Password must be at least 10 characters long';
+    }
+    return passwordRegex.test(password) ? '' : 'Weak password. Include uppercase, lowercase, numbers, and symbols.';
+};
