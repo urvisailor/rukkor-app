@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, TextInput, StyleSheet, Text, ViewStyle} from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  ViewStyle,
+  Platform,
+} from 'react-native';
 import {COLORS, FONTS} from '../utils/constants';
 interface Props {
   label: string;
@@ -74,13 +81,16 @@ const styles = StyleSheet.create({
   },
   inputView: {
     flexDirection: 'row',
-    padding: 10,
-    justifyContent:'space-between',
+    padding: Platform.OS === 'ios' ? 10 : 0,
+    paddingHorizontal: Platform.OS === 'android' ? 10 : 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: COLORS.grey,
   },
-  firstInput:{
-    flexDirection:'row'
-  }
+  firstInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default CustomTextInput;

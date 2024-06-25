@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ViewStyle,
   TextStyle,
+  View,
 } from 'react-native';
 import {COLORS, FONTS} from '../utils/constants';
 interface Props {
@@ -12,11 +13,21 @@ interface Props {
   title: string;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  icon?: any;
 }
-const CustomButton: React.FC<Props> = ({onPress, title, style, textStyle}) => {
+const CustomButton: React.FC<Props> = ({
+  onPress,
+  title,
+  style,
+  textStyle,
+  icon,
+}) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+      <View style={styles.row}>
+        <Text style={[styles.text, textStyle]}>{title}</Text>
+        {icon && icon}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -34,6 +45,10 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.roboto,
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

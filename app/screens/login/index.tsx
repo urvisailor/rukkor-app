@@ -1,21 +1,23 @@
-// App.js
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import CustomButton from '../../components/button';
 import CustomTextInput from '../../components/textinput';
 import styles from './styles';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+interface Props {
+  navigation: NativeStackNavigationProp<any>;
+}
 
-const Login = () => {
+const Login: React.FC<Props> = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isVisible, setisVisible] = useState(true);
 
   const handleLogin = () => {
-    // Handle login action
   };
 
   const handleCreateAccount = () => {
-    // Handle create account action
+    navigation.navigate('NewAccount');
   };
 
   return (
